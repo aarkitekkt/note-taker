@@ -4,10 +4,22 @@ var fs = require("fs");
 module.exports = function (app) {
 
     app.get("/api/notes", function (req, res) {
-        return res.json(notes);
+
+
+        fs.readFile("C:/Users/johns/Developer/uofu/sandbox/homework/note-taker/db/db.json", "utf8", function (err, notes) {
+
+            if (err) {
+                console.log(err);
+            } else {
+
+                notes = JSON.parse(notes);
+
+                return res.json(notes);
+            }
+
+        });
+
     });
-
-
 
     app.post("/api/notes", function (req, res) {
         var newNote = req.body;
@@ -28,8 +40,6 @@ module.exports = function (app) {
                     notes[i].id = i.toString();
                 }
 
-                console.log(notes);
-
                 fs.writeFile("C:/Users/johns/Developer/uofu/sandbox/homework/note-taker/db/db.json", JSON.stringify(notes), function (err) {
                     if (err) {
                         return console.log(err);
@@ -38,10 +48,12 @@ module.exports = function (app) {
                     console.log("added " + JSON.stringify(newNote) + " to db.json");
                 })
 
-
+                console.log(notes);
             }
+        });
 
-        })
+        res.json({ ok: true });
+
     });
 
     app.get("/api/notes/:note", function (req, res) {
@@ -55,7 +67,7 @@ module.exports = function (app) {
             }
         }
 
-        return res.json(false);
+        return res.json("That ID number does not exist");
     })
 
     app.delete("/api/notes/:note", function (req, res) {
@@ -90,9 +102,14 @@ module.exports = function (app) {
                     }
 
                     console.log("removed " + JSON.stringify(chosen) + " from db.json");
+
                 })
+
+
             }
         })
+
+        res.json({ ok: true });
     })
 };
 
