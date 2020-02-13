@@ -1,12 +1,14 @@
 var notes = require("../db/db.json");
 var fs = require("fs");
+var path = require("path");
 
 module.exports = function (app) {
 
+    var db = path.join(__dirname, "../db/db.json");
+
     app.get("/api/notes", function (req, res) {
 
-
-        fs.readFile("C:/Users/johns/Developer/uofu/sandbox/homework/note-taker/db/db.json", "utf8", function (err, notes) {
+        fs.readFile(db, "utf8", function (err, notes) {
 
             if (err) {
                 console.log(err);
@@ -26,7 +28,7 @@ module.exports = function (app) {
 
         console.log(newNote);
 
-        fs.readFile("C:/Users/johns/Developer/uofu/sandbox/homework/note-taker/db/db.json", "utf8", function (err, notes) {
+        fs.readFile(db, "utf8", function (err, notes) {
 
             if (err) {
                 console.log(err);
@@ -40,7 +42,7 @@ module.exports = function (app) {
                     notes[i].id = i.toString();
                 }
 
-                fs.writeFile("C:/Users/johns/Developer/uofu/sandbox/homework/note-taker/db/db.json", JSON.stringify(notes), function (err) {
+                fs.writeFile(db, JSON.stringify(notes), function (err) {
                     if (err) {
                         return console.log(err);
                     }
@@ -76,7 +78,7 @@ module.exports = function (app) {
 
         console.log(chosen);
 
-        fs.readFile("C:/Users/johns/Developer/uofu/sandbox/homework/note-taker/db/db.json", "utf8", function (err, notes) {
+        fs.readFile(db, "utf8", function (err, notes) {
 
             if (err) {
                 console.log(err);
@@ -96,7 +98,7 @@ module.exports = function (app) {
 
                 console.log(notes);
 
-                fs.writeFile("C:/Users/johns/Developer/uofu/sandbox/homework/note-taker/db/db.json", JSON.stringify(notes), function (err) {
+                fs.writeFile(db, JSON.stringify(notes), function (err) {
                     if (err) {
                         return console.log(err);
                     }
