@@ -1,6 +1,8 @@
-# Team Profile Builder
+# Note-Taker
 
 Repository: https://github.com/aarkitekkt/note-taker
+
+Deployed: https://aarkitekkt-notes.herokuapp.com/
 
 ## Overview
 ​
